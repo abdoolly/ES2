@@ -7,7 +7,9 @@
     "watch": "tsc --watch",
     "build": "tsc",
     "start": "node ./build/bin/www",
-    "build:run": "npm run build && npm run prod"
+    "build:run": "yarn build && yarn start",
+    "test": "jest --config jest.config.json",
+    "start-db": "docker-compose -f docker-compose-dev.yaml up -d"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

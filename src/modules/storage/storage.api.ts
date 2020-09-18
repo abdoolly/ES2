@@ -1,6 +1,8 @@
 import { Router, Request, Response } from 'express';
 const router = Router();
 
+router.get('/', (req, res) => res.send({ hello: 'world' }));
+
 /**
  * @description encrypt data
  */
