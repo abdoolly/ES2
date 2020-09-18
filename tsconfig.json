@@ -14,6 +14,7 @@
     "strict": true,
     "noImplicitAny": false,
     "moduleResolution": "node",
+    "allowJs": true,
     "types": [
       "node",
       "jest"
@@ -21,5 +22,10 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "skipLibCheck": true
-  }
+  },
+  "exclude": [
+    "src/**/*.test.ts",
+    "test/",
+    "build/"
+  ]
 }

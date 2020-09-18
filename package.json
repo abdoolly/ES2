@@ -9,18 +9,25 @@
     "start": "node ./build/bin/www",
     "build:run": "yarn build && yarn start",
     "test": "jest --config jest.config.json",
-    "start-db": "docker-compose -f docker-compose-dev.yaml up -d"
+    "start-db": "docker-compose -f docker-compose-dev.yaml up -d",
+    "migrate": "knex migrate:latest --knexfile src/config/knexfile.js",
+    "make:migration": "knex migrate:make --knexfile src/config/knexfile.js"
   },
   "dependencies": {
+    "bookshelf": "^1.2.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
     "express": "~4.16.1",
-    "morgan": "~1.9.1"
+    "knex": "^0.21.5",
+    "morgan": "~1.9.1",
+    "pg": "^8.3.3"
   },
   "devDependencies": {
+    "@types/bookshelf": "^1.1.1",
     "@types/express": "^4.17.8",
     "@types/jest": "^26.0.14",
+    "@types/knex": "^0.16.1",
     "@types/node": "^14.11.1",
     "jest": "^26.4.2",
     "nodemon": "^2.0.4",
