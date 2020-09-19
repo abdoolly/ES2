@@ -36,7 +36,7 @@ router.post('/store', async (req: Request, res: Response) => {
         // making the user key in it's final form
         let userKey = toEncryptionKey(attributes.encryption_key, item.identifier);
         if (decryptedKey !== userKey) {
-            console.log('user key and already existing data key do not match');
+            console.error('user key and already existing data key do not match');
             return res.status(400).send({ message: 'Could not store your data' });
         }
 
