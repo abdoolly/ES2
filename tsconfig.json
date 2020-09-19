@@ -27,6 +27,7 @@
     "src/**/*.test.ts",
     "test/",
     "build/",
-    "test/"
+    "test/",
+    "coverage/"
   ]
 }

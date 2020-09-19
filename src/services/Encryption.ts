@@ -3,7 +3,7 @@ import * as aes256 from 'aes256';
 /**
  * @description a service class which is used to encrypt and decrypt data
  */
-class Encryption {
+export class Encryption {
     /**
      * a key that is used to encrypt the internal data like the user keys themselves
      */

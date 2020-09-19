@@ -1,4 +1,4 @@
-import { Encryptor } from '../services/Encryption';
+import { Encryptor } from '../../services/Encryption';
 
 describe('Encryptor', () => {
     it('Should encrypt and decrypt successfully', () => {

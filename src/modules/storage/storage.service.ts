@@ -56,6 +56,7 @@ export const getDecryptedData = (items: StorageType[], userDecKey: string) => {
         for (let item of items) {
             let userFinalDecKey = toEncryptionKey(userDecKey, item.identifier);
             let itemDecKeyDecrypted = decryptKey(item.encryption_key);
+
             if (userFinalDecKey !== itemDecKeyDecrypted) {
                 console.log(`user entered invalid decryption key for identifier "${item.identifier}"`);
                 return [];

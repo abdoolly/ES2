@@ -36,16 +36,7 @@ export const isValidStoreData = (body: any) => {
         }
     };
 
-    let validator = validate(body, constraints, {
-        fullMessages: true,
-        format: 'grouped',
-    });
-
-    return {
-        isValid: validator === undefined,
-        attributes: cleanAttributes(body, constraints),
-        errMsgs: validator
-    };
+    return getValidationOutput(body, constraints);
 };
 
 /**
@@ -75,6 +66,11 @@ export const isValidRetrieveData = (body: any) => {
         }
     };
 
+    return getValidationOutput(body, constraints);
+};
+
+
+export const getValidationOutput = (body: any, constraints: any) => {
     let validator = validate(body, constraints, {
         fullMessages: true,
         format: 'grouped',
