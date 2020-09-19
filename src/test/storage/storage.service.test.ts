@@ -79,7 +79,7 @@ describe('Test storage.service', () => {
         ];
         let data = getDecryptedData(items, '123');
         expect(data[0]).toEqual({
-            identifier: 'id-1',
+            id: 'id-1',
             value: { value: 1 }
         });
     });

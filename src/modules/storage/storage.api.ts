@@ -17,7 +17,9 @@ router.post('/store', async (req: Request, res: Response) => {
         }
 
         // check if item exists 
-        let item = await Storage().where({ identifier: attributes.id }).fetch({ require: false });
+        let item = await Storage()
+            .where({ identifier: attributes.id })
+            .fetch({ require: false });
 
         // case this item is a new item then send the values and construct the object with all encryption logic
         if (!item) {

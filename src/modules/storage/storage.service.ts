@@ -51,7 +51,7 @@ export const getDataEncrypted = (value: any, encKey: string) => {
  */
 export const getDecryptedData = (items: StorageType[], userDecKey: string) => {
     try {
-        let finalData: { identifier: string, value: any }[] = [];
+        let finalData: { id: string, value: any }[] = [];
 
         for (let item of items) {
             let userFinalDecKey = toEncryptionKey(userDecKey, item.identifier);
@@ -67,7 +67,7 @@ export const getDecryptedData = (items: StorageType[], userDecKey: string) => {
 
             // pushing it in the final array
             finalData.push({
-                identifier: item.identifier,
+                id: item.identifier,
                 value: JSON.parse(dataDecrypted)
             });
         }
