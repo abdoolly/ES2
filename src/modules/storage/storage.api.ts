@@ -1,4 +1,6 @@
 import { Router, Request, Response } from 'express';
+import { Storage } from '../../models/Storage';
+import { Knex } from '../../config/db';
 const router = Router();
 
 router.get('/', (req, res) => res.send({ hello: 'world' }));
@@ -6,7 +8,8 @@ router.get('/', (req, res) => res.send({ hello: 'world' }));
 /**
  * @description encrypt data
  */
-router.post('/encrypt', (req: Request, res: Response) => {
+router.post('/encrypt', async (req: Request, res: Response) => {
+    // Knex('storage').whereRaw('');
     return res.send({ 'home': 'Hello world' });
 });
 

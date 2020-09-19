@@ -1,5 +1,6 @@
 require('dotenv').config();
 import express from 'express';
+require('./config/db');
 import indexRouter from './modules/storage/storage.api';
 
 const app = express();
