@@ -103,3 +103,12 @@ this will compile the typescript then run the node server you should now see thi
 ```
 Server is running on http://localhost:3000/health
 ```
+
+#### Running tests 
+This will run tests and output the coverage for the project
+
+```
+yarn test:coverage
+```
+
+
