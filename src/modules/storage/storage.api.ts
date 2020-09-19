@@ -5,8 +5,6 @@ import { constructStorageObject, decryptKey, getDataEncrypted, getDecryptedData,
 import { isValidRetrieveData, isValidStoreData } from './storage.validators';
 const router = Router();
 
-router.get('/', (req, res) => res.send({ hello: 'world' }));
-
 /**
  * @description store data securly
  */
