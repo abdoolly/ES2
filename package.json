@@ -14,6 +14,7 @@
     "make:migration": "knex migrate:make --knexfile ./src/config/knexfile.js"
   },
   "dependencies": {
+    "aes256": "^1.0.4",
     "bookshelf": "^1.2.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -22,7 +23,8 @@
     "knex": "^0.21.5",
     "morgan": "~1.9.1",
     "pg": "^8.3.3",
-    "ts-node": "^9.0.0"
+    "ts-node": "^9.0.0",
+    "validate.js": "^0.13.1"
   },
   "devDependencies": {
     "@types/bookshelf": "^1.1.1",
@@ -32,6 +34,7 @@
     "@types/node": "^14.11.1",
     "jest": "^26.4.2",
     "nodemon": "^2.0.4",
+    "ts-jest": "^26.3.0",
     "typescript": "^4.0.2"
   }
 }
