@@ -11,5 +11,21 @@
     },
     "testPathIgnorePatterns": [
         "build/"
+    ],
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+        "ts",
+        "js",
+        "json"
+    ],
+    "coveragePathIgnorePatterns": [
+        "build/",
+        "src/bin/",
+        "src/config/",
+        "src/app.ts",
+        "src/models/"
+    ],
+    "collectCoverageFrom": [
+        "src/**/*.ts"
     ]
 }

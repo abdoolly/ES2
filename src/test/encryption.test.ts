@@ -7,7 +7,7 @@ describe('Encryptor', () => {
         let encrypted = Encryptor.encrypt(test_key, test_msg);
         expect(encrypted).toBeTruthy();
 
-        let decrypted = Encryptor.decrypt('test_keyasd', encrypted);
+        let decrypted = Encryptor.decrypt('test_key', encrypted);
         expect(decrypted).toEqual(test_msg);
     });
 });

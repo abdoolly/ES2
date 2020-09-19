@@ -4,7 +4,6 @@ import { ModelOptions } from "bookshelf";
 
 const model = DB.model('Storage', {
     tableName: 'storage',
-    hidden: ['encryption_key', 'data']
 });
 
 export const Storage = (attributes?: any, options?: ModelOptions) => {

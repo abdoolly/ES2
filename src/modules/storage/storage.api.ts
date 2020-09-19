@@ -1,24 +1,25 @@
 import { Request, Response, Router } from 'express';
 import { Storage } from '../../models/Storage';
-import { constructStorageObject, decryptKey, getDataEncrypted, isValidStoreData, toEncryptionKey } from './storage.service';
-import { Knex } from '../../config/db';
+import { StorageType } from '../../types/models/storage.type';
+import { constructStorageObject, decryptKey, getDataEncrypted, getDecryptedData, toEncryptionKey } from './storage.service';
+import { isValidRetrieveData, isValidStoreData } from './storage.validators';
 const router = Router();
 
 router.get('/', (req, res) => res.send({ hello: 'world' }));
 
 /**
- * @description encrypt data
+ * @description store data securly
  */
 router.post('/store', async (req: Request, res: Response) => {
     try {
-        const { isValid, attributes } = isValidStoreData(req.body);
+        const { isValid, attributes, errMsgs } = isValidStoreData(req.body);
         // case there was a validation err
         if (!isValid) {
-            return res.status(422).send(isValid);
+            return res.status(422).send(errMsgs);
         }
 
         // check if item exists 
-        let item = await Storage({ identifier: attributes.id }).fetch({ require: false });
+        let item = await Storage().where({ identifier: attributes.id }).fetch({ require: false });
 
         // case this item is a new item then send the values and construct the object with all encryption logic
         if (!item) {
@@ -46,35 +47,45 @@ router.post('/store', async (req: Request, res: Response) => {
         await Storage({ id: item.id }).save({ data, updated_at: new Date() });
         return res.send({ message: 'Data stored successfully' });
     } catch (err) {
+        console.error(err);
         return res.status(400).send({ message: 'Server error please try again later' });
     }
 });
 
 /**
- * @description decrypt and query data
+ * @description decrypt data 
  */
 router.post('/retrieve', async (req: Request, res: Response) => {
-    let body = req.body;
+    try {
+        let { isValid, attributes: attrs, errMsgs } = isValidRetrieveData(req.body);
+        if (!isValid) {
+            return res.status(422).send(errMsgs);
+        }
 
-    // search for wild card
-    // if found search by the like query
-    // if not found then search normally 
-    // then loop on the findings 
-    // make sure decryption key match all results 
-    // decrypt data and put it in a new array 
-    // any non matching keys will result in stopping the whole operation and returning an empty array
-    // in success case return the data decrypted to the user
+        let queryResult: StorageType[] | null = null;
+        let wildCardSplit: string[] = attrs.id.split('*');
+        let hasWildCard = wildCardSplit.length > 1;
 
-    if (body.identifier.find()) {
+        // if there is a wildcard then handle getting the values using wild card
+        if (hasWildCard) {
+            queryResult = await Storage().query().whereRaw(`identifier LIKE ?`, [wildCardSplit.join('%')]);
+        }
 
+        // no wild card then get the data normally
+        if (!hasWildCard) {
+            queryResult = (await Storage().where({ identifier: attrs.id }).fetchAll({ require: false })).serialize();
+        }
+
+        if (queryResult === null || queryResult.length === 0) {
+            return res.send([]);
+        }
+
+        const finalData = getDecryptedData(queryResult, attrs.decryption_key);
+        return res.send(finalData);
+    } catch (err) {
+        console.error(err);
+        return res.status(400).send({ message: 'Server error please try again later' });
     }
-
-    let result = await Storage().query().whereRaw(`identifier LIKE ?`, ['%data%']);
-
-    // let result = await Storage().where('identifier', 'like', `${body.id}%`).fetch({ require: false });
-    // let two = await Knex.table('storage').whereRaw("identifier LIKE ?", ['data%']);
-
-    return res.send(result);
 });
 
 export default router;

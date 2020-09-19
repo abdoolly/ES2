@@ -8,7 +8,7 @@
     "build": "tsc",
     "start": "node ./build/bin/www",
     "build:run": "yarn build && yarn start",
-    "test": "jest --config jest.config.json",
+    "test": "jest --coverage --config jest.config.json",
     "start-db": "docker-compose -f docker-compose-dev.yaml up -d",
     "migrate": "knex migrate:latest --knexfile ./src/config/knexfile.js",
     "make:migration": "knex migrate:make --knexfile ./src/config/knexfile.js"
