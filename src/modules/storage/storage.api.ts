@@ -62,6 +62,7 @@ router.post('/retrieve', async (req: Request, res: Response) => {
             return res.status(422).send(errMsgs);
         }
 
+        // steps to be able to identify if there is a wild card in the user identifier
         let queryResult: StorageType[] | null = null;
         let wildCardSplit: string[] = attrs.id.split('*');
         let hasWildCard = wildCardSplit.length > 1;
@@ -76,10 +77,12 @@ router.post('/retrieve', async (req: Request, res: Response) => {
             queryResult = (await Storage().where({ identifier: attrs.id }).fetchAll({ require: false })).serialize();
         }
 
+        // if result is empty
         if (queryResult === null || queryResult.length === 0) {
             return res.send([]);
         }
 
+        // getting the data decrypted for the user
         const finalData = getDecryptedData(queryResult, attrs.decryption_key);
         return res.send(finalData);
     } catch (err) {

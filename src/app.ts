@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: false }));
 /**
  * @description health check router
  */
-app.get('/health', (req, res) => res.status(200).send);
+app.get('/health', (req, res) => res.status(200).send());
 app.use('/', indexRouter);
 
 export default app;
