@@ -8,4 +8,3 @@ export interface StorageType extends Model<any> {
     created_at: Date;
     updated_at: Date;
 };
-export type StorageP = Promise<StorageType>;
